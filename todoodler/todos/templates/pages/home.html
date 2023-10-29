@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock title %}
+{% block content %}
+    <div class="my-3">
+        <h1> Welcome to the home page!</h1>
+    </div>
+    <div class="row my-3" id="form-and-list">
+        <div class="w-50">
+            <form hx-post="{% url 'add_task' %}" hx-target="#todos" hx-on::after-request="this.reset()">
+                <div class="input-group mb-3">
+                    <input 
+                        type="text"
+                        name="title"
+                        class="form-control"
+                        placeholder="Add task"
+                        required
+                        >
+                    <button type="submit" class="btn btn-outline-secondary" type="button">Add</button>
+                </div>
+            </form>
+        </div>
+        <div class="w-50" id="todos">
+        {% include "layout/todo_list.html" %}
+        </div>
+    </div>
+    <div class="row">
+        <button class="btn btn-danger" hx-get="{% url 'clean_empty_todo_items' %}" hx-target="#main" hx-swap="#main">clean dirty tasks</button>
+    </div>
+{% endblock %}
+```
